@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Shopping_list</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit_message">enter an item</string>
+    <string name="button_submit">Enter</string>
+    <string name="welcome">Start</string>
+    <string name="title_activity_go_to_new">GoToNew</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
