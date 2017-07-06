@@ -29,23 +29,7 @@ public class MainActivity extends AppCompatActivity {
         
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Cursor res = myDb.getAllData();
-        StringBuffer buffer = new StringBuffer();
-
-        TextView list = (TextView) findViewById(R.id.item_list);
-        if (res.getCount() != 0) {
-            while (res.moveToNext()) {
-                buffer.append("ID: " + res.getString(0) + "\n");
-                buffer.append("WHat : " + res.getString(1) + "\n");
-                buffer.append("done : " + res.getString(2) + "\n");
-            }
-
-            list.setText(buffer);
-        } else {
-            list.setText("nothing to show");
-            
-        }
+        fillItemList();
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -56,6 +40,28 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void fillItemList(){
+        Cursor res = myDb.getAllData();
+        StringBuffer buffer = new StringBuffer();
+
+        TextView list = (TextView) findViewById(R.id.item_list);
+        if (res.getCount() != 0) {
+            while (res.moveToNext()) {
+                if (res.getString(2) == "1") {
+                    buffer.append("- " + res.getString(1) + " -- done \n");
+                } else {
+                    buffer.append("- " + res.getString(1) + " -- not done <button>sdfa</button> \n");
+                }
+            }
+
+            list.setText(buffer);
+        } else {
+            list.setText("nothing to show");
+            
+        }
+        
     }
 
     @Override
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.input_text);
         String message = editText.getText().toString();
-
+        editText.setText("");
         // make the insert
         boolean success = myDb.insertData(message);
 
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (success) {
             Toast.makeText(MainActivity.this,"inserted",Toast.LENGTH_LONG).show();
-            // startActivity(intent);
+            fillItemList();
         } else {
             Toast.makeText(MainActivity.this,"error",Toast.LENGTH_LONG).show();
             err_mess.setText("There was an error");

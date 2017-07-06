@@ -20,12 +20,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public final static String COL_3="Completed";
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
-       // SQLiteDatabase db = this.getWritableDatabase();
+       SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, Content TEXT, Completed BOOLEAN)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, Content TEXT, Completed BOOLEAN)");
 
     }
 
@@ -47,6 +47,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             return true;
         }
+    }
+
+    public boolean toggleDone(Integer id) {
+
+        return true;
+    }
+
+    public boolean deleteItem(Integer id) {
+
+        return true;
+    }
+
+    public boolean clearList() {
+        return true;
     }
 
     public Cursor getAllData() {
